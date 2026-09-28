@@ -490,8 +490,9 @@ impl<'a> ExportSink<'a> {
     }
 
     pub(super) fn enable_measured_array_routes(&mut self, branch: &str) {
+        let norm = branch.replace("-china-", "-");
         self.measured_array_routes = matches!(
-            branch,
+            norm.as_str(),
             "++Ares-Core+release-13.01"
                 | "++Ares-Core+release-13.02"
                 | "++Ares-Core+release-13.04"

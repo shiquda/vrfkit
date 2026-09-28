@@ -271,7 +271,8 @@ impl TransformVersion {
     /// Look up a transform by exact replay branch string.
     #[must_use]
     pub fn from_branch(branch: &str) -> Option<Self> {
-        ALL_VERSIONS.iter().copied().find(|v| v.branch() == branch)
+        let norm = branch.replace("-china-", "-");
+        ALL_VERSIONS.iter().copied().find(|v| v.branch() == branch || v.branch() == norm)
     }
 
     /// Look up a transform, returning a descriptive error when unknown.
