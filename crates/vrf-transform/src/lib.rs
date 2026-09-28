@@ -271,6 +271,11 @@ impl TransformVersion {
     /// Look up a transform by exact replay branch string.
     #[must_use]
     pub fn from_branch(branch: &str) -> Option<Self> {
+        if let Ok(over) = std::env::var("VRF_OVERRIDE_TRANSFORM") {
+            if let Some(v) = ALL_VERSIONS.iter().copied().find(|v| v.branch().ends_with(&over)) {
+                return Some(v);
+            }
+        }
         let norm = branch.replace("-china-", "-");
         ALL_VERSIONS.iter().copied().find(|v| v.branch() == branch || v.branch() == norm)
     }
